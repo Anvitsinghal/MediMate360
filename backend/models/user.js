@@ -40,6 +40,10 @@ const userschema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Reminder'
   }],
+  profilepicture:{
+     public_id: String,
+       url: String,
+  },
   matchedSchemes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Scheme'

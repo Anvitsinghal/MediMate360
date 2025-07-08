@@ -3,7 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import connDB from "./config/db.js";
-
+import authRoutes from "./routes/authRoutes.js"
 const app=express();
 dotenv.config();
 app.use(cors({
@@ -17,6 +17,7 @@ app.use(cookieParser());
 app.get("/",(req,res)=>{
     res.send("hello");
 })
+app.use('/user',authRoutes);
 const port=process.env.PORT||5000;
 app.listen(port,()=>{
     connDB();
