@@ -1,6 +1,8 @@
 import Medicine from "../models/medicine.js";
 import { extractTextFromImage } from "../utils/ocr.js";
 import getDataUri from "../utils/datauri.js";
+import { Prescription } from "../models/Prescription.js";
+import User from "../models/user.js";
 
 export const uploadPrescriptionAndExtract = async (req, res) => {
   try {
@@ -20,7 +22,7 @@ export const uploadPrescriptionAndExtract = async (req, res) => {
     for (let line of extractedLines) {
       for (let med of allMedicines) {
         if (line.toLowerCase().includes(med.name.toLowerCase())) {
-          matchedMedicines.push(med);
+          matchedMedicines.push({ name: med.name });
           break;
         }
       }
@@ -30,10 +32,22 @@ export const uploadPrescriptionAndExtract = async (req, res) => {
       return res.status(404).json({ success: false, message: "No known medicine found in prescription" });
     }
 
+    // Create Prescription document and associate with user
+    const prescription = await Prescription.create({
+      user: req.id,
+      sourceType: "image",
+      extractedMedicines: matchedMedicines,
+      // Optionally add imageurl if you upload the image somewhere
+    });
+
+    // Push prescription ID to user's prescriptions array
+    await User.findByIdAndUpdate(req.id, { $push: { prescriptions: prescription._id } });
+
     res.status(200).json({
       success: true,
-      message: "Medicines found in prescription",
-      medicines: matchedMedicines
+      message: "Medicines found in prescription and prescription saved",
+      medicines: matchedMedicines,
+      prescription
     });
 
   } catch (error) {

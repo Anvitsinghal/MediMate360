@@ -59,16 +59,16 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    const user = await User.findOne({ email }).populate("prescriptions")
-   .populate("reminders")
-  .populate("matchedSchemes");
+    const user = await User.findOne({ email })
+      .populate("prescriptions")
+      .populate("reminders")
+      .populate("matchedSchemes");
     if (!user) {
       return res.status(401).json({
         message: "Account not created for this email",
         success: false,
       });
     }
-  
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
@@ -84,42 +84,8 @@ export const loginUser = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    const populatedPrescriptions = await Promise.all(
-      user.prescriptions.map(async (id) => {
-        const pres = await Prescription.findById(id);
-        if (pres && pres.user.equals(user._id)) return pres;
-        return null;
-      })
-    );
-
-    const reminders = await Promise.all(
-      user.reminders.map(async (rid) => {
-        const remin = await Reminder.findById(rid);
-        if (remin && remin.user.equals(user._id)) return remin;
-        return null;
-      })
-    );
-
-    const matchedSchemes = await Promise.all(
-      user.matchedSchemes.map(async (mid) => {
-        const match = await Scheme.findById(mid);
-        if (match) return match;
-        return null;
-      })
-    );
-
-    const safeUser = {
-      id: user._id,
-      name: user.name,
-      age: user.age,
-      gender: user.gender,
-      state: user.state,
-      diseases: user.diseases,
-      prescriptions: populatedPrescriptions.filter(Boolean),
-      reminders: reminders.filter(Boolean),
-      profilepicture:user.profilepicture,
-      matchedSchemes: matchedSchemes.filter(Boolean),
-    };
+    // Remove password from user object
+    const { password: pwd, ...safeUser } = user.toObject();
 
     return res
       .cookie("token", token, {
@@ -133,7 +99,6 @@ export const loginUser = async (req, res) => {
         success: true,
         user: safeUser,
       });
-
   } catch (error) {
     console.error(error);
     return res.status(500).json({
