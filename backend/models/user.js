@@ -47,7 +47,11 @@ const userschema = new mongoose.Schema({
   matchedSchemes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Scheme'
-  }]
+  }],
+  isAdmin: {
+    type: Boolean,
+    default: false, // Normal users by default
+  }
 }, {
   timestamps: true 
 });

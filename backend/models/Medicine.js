@@ -8,12 +8,18 @@ const medicineSchema = new mongoose.Schema({
     trim: true
   },
 
+  composition: {
+    type: String,
+    required: true,
+    trim: true
+  },
+
   description: {
     type: String,
     required: true
   },
 
-  usage: {
+  uses: {
     type: String
   },
 
@@ -21,26 +27,29 @@ const medicineSchema = new mongoose.Schema({
     type: String
   },
 
-  sideEffects: {
-    type: [String]
-  },
+  sideEffects: [String],
 
-  precautions: {
-    type: [String]
-  },
+  precautions: [String],
 
   storageInstructions: {
     type: String
   },
 
-  category: {
-    type: String 
+  type: {
+    type: String // e.g., Tablet, Syrup, Injection
   },
 
   isGeneric: {
     type: Boolean,
     default: false
   },
+
+  isPrescriptionRequired: {
+    type: Boolean,
+    default: false
+  },
+
+  diseases: [String], // For relevance checks
 
   alternatives: [
     {
@@ -50,7 +59,7 @@ const medicineSchema = new mongoose.Schema({
     }
   ],
 
-  manufacturers: [String], // Optional
+  manufacturers: [String],
 
   price: {
     type: String
@@ -58,7 +67,7 @@ const medicineSchema = new mongoose.Schema({
 
   buyLinks: [
     {
-      pharmacy: String, 
+      pharmacy: String,
       url: String
     }
   ],
@@ -70,5 +79,4 @@ const medicineSchema = new mongoose.Schema({
 });
 
 const Medicine = mongoose.model('Medicine', medicineSchema);
-
 export default Medicine;

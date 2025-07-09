@@ -12,19 +12,19 @@
 │
 ├── 📁 //?controllers/              # Route handlers (business logic)
 │   ├── //!authController.js
-│   ├── uploadController.js     # Handles OCR via Tesseract
-│   ├── medicineController.js   # Fetch medicine info, alternatives, buy links
-│   ├── relevanceController.js  # AI relevance checker logic
-│   ├── reminderController.js   # Pill reminders
-│   └── schemeController.js     # Government scheme filters
+│   ├── //!uploadController.js     # Handles OCR via Tesseract
+│   ├── //!medicineController.js   # Fetch medicine info, alternatives, buy links
+│   ├── //!relevanceController.js  # AI relevance checker logic
+│   ├──//! reminderController.js   # Pill reminders
+│   └── //!schemeController.js     # Government scheme filters
 │
 ├── 📁 //?routes/                   # Route definitions
 │   ├── //!authRoutes.js
-│   ├── uploadRoutes.js
-│   ├── medicineRoutes.js
-│   ├── relevanceRoutes.js
-│   ├── reminderRoutes.js
-│   └── schemeRoutes.js
+│   ├── //!uploadRoutes.js
+│   ├── //!medicineRoutes.js
+│   ├── //!relevanceRoutes.js
+│   ├── //!reminderRoutes.js
+│   └── //!schemeRoutes.js
 │
 ├── 📁 //?models/                   # Mongoose schemas
 │   ├── //!User.js
@@ -35,9 +35,7 @@
 │
 ├── 📁 //?middleware/               # Custom middleware
 │   ├── //!authMiddleware.js       # Protect routes
-│   ├── errorMiddleware.js      # Global error handler
-│   ├── uploadMiddleware.js     # File upload middleware (e.g., multer)
-│   └── validateInput.js        # (Optional) Joi/Zod-based validation
+│   
 │
 ├── 📁 utils/                    # Helper functions
 │   ├── ocrProcessor.js         # Tesseract logic
@@ -47,15 +45,6 @@
 │   ├── buyLinkFetcher.js       # (Optional) Fetch links from APIs or web scraping
 │   └── schemeFilter.js         # Filters schemes by user info
 │
-├── 📁 uploads/                  # Local image uploads (temp)
-│   └── (temp images)
-│
-├── 📁 services/                 # Third-party integrations (optional for clean code)
-│   ├── aiService.js
-│   ├── emailService.js
-│   └── pharmacyApiService.js   # Buy link APIs
-│
-└── 📁 logs/                     # App logs (optional)
-    └── app.log
+├─
 
     */

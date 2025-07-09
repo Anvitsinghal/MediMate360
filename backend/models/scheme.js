@@ -37,6 +37,10 @@ const schemeSchema = new mongoose.Schema({
     },
     otherCriteria: {
       type: String 
+    },
+    schemeimage:{
+       public_id: String,
+       url: String,
     }
   },
 

@@ -2,7 +2,7 @@ import express from "express"
 import isAuth from "../config/isAuth.js";
 import { deleteUser, getCurrentUser, loginUser, logout, registerUser, updateUserProfile } from "../controllers/authcontroller.js";
 import upload from "../utils/multer.js";
-const router =express();
+const router =express.Router();
 
 
 router.route('/me').get(isAuth,getCurrentUser);

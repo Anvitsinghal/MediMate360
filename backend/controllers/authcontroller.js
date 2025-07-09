@@ -5,8 +5,8 @@ import  {Prescription}  from "../models/Prescription.js";
 import Reminder from "../models/Reminder.js";
 import Scheme from "../models/scheme.js";
 import getDataUri from "../utils/datauri.js"
-import cloudinary from "../utils/cloudinary.js";
 
+import { v2 as cloudinary } from "cloudinary"; 
 
 
 export const registerUser = async (req, res) => {
@@ -59,13 +59,16 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate("prescriptions")
+   .populate("reminders")
+  .populate("matchedSchemes");
     if (!user) {
       return res.status(401).json({
         message: "Account not created for this email",
         success: false,
       });
     }
+  
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
@@ -165,6 +168,11 @@ export const getCurrentUser = async (req, res) => {
         success: false,
       });
     }
+// const user = await User.findById(req.id)
+//   .select("-password")
+//   .populate("prescriptions")
+//   .populate("reminders")
+//   .populate("matchedSchemes");
 
     return res.status(200).json({
       message: "User found",
