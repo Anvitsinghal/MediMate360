@@ -7,7 +7,7 @@ const router =express.Router();
 
 router.route("/getallschemes").get(getAllSchemes);
 router.route("/:id").get(getSchemeById);
-router.post("/create", isAuth, isAdmin, upload.single("schemeimage"), createScheme);
+router.post("/create",  upload.single("schemeimage"), createScheme);
 router.post("/update/:id", isAuth, isAdmin, upload.single("schemeimage"), updateScheme);
 router.delete("/delete/:id", isAuth, isAdmin, deleteScheme);
 

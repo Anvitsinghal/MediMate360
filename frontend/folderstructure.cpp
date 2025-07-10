@@ -1,8 +1,7 @@
 // src/
 // │
 // ├── App.jsx
-// ├── main.jsx
-// ├── index.css
+// 
 // │
 // ├── components/
 // │   ├── layout/
@@ -21,8 +20,8 @@
 // │   │   ├── ReminderForm.jsx
 // │   │   └── ReminderList.jsx
 // │   ├── user/
-// │   │   ├── Login.jsx
-// │   │   ├── Register.jsx
+// │   │   ├── //!Login.jsx
+// │   │   ├── //!Register.jsx
 // │   │   ├── Profile.jsx
 // │   │   └── EditProfile.jsx
 // │   └── common/
