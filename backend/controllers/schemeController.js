@@ -145,7 +145,7 @@ export const updateScheme = async (req, res) => {
     const schemeImage = req.file;
     if (schemeImage) {
       const fileUri = getDataUri(schemeImage);
-      const cloudresponse = await cloudinary.uploader.upload(fileUri);
+      const cloudresponse = await cloudinary.uploader.upload(fileUri.content);
       scheme.schemeimage = {
         public_id: cloudresponse.public_id,
         url: cloudresponse.secure_url,
@@ -216,7 +216,7 @@ export const deleteScheme = async (req, res) => {
 
 export const matchSchemesForUser = async (req, res) => {
   try {
-    const user = await User.findById(req.id).select("gender state diseases");
+    const user = await User.findById(req.id).select("gender state age");
 
     if (!user) {
       return res.status(404).json({

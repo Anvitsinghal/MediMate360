@@ -7,6 +7,11 @@ import { uploadPrescriptionAndExtract } from "../controllers/prescriptionUploadc
 
 const router = express.Router();
 
-router.post("/upload", isAuth, upload.single("file"), uploadPrescriptionAndExtract);
+// Test route to verify the router is working
+router.get("/test", (req, res) => {
+  res.json({ message: "Prescription routes are working!" });
+});
+
+router.post("/upload", isAuth, upload.single("prescription"), uploadPrescriptionAndExtract);
 
 export default router;

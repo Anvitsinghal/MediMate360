@@ -9,7 +9,8 @@ import { CiLogout } from "react-icons/ci";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import axios from 'axios';
-
+import { GrUserAdmin } from "react-icons/gr";
+import { useSelector } from 'react-redux';
 
 
 const LeftSidebar = () => {
@@ -19,6 +20,7 @@ const LeftSidebar = () => {
   { icon: <FaUserDoctor size={20} />, text: "Check Relevance" },
   { icon: <IoMdAlarm size={20} />, text: "Reminders" },
   { icon: <IoLibrary size={20} />, text: "Schemes" },
+   { icon: <GrUserAdmin size={20} />, text: "Admin" },
   {
     icon: (
       <Avatar className="w-6 h-6">
@@ -30,7 +32,7 @@ const LeftSidebar = () => {
   },
   { icon: <CiLogout size={20} />, text: "Logout" },
 ];
-
+const {user}=useSelector(store=>store.auth);
   const navigate=useNavigate();
   const sidebarHandler=(texttype)=>{
   if(texttype=="Home"){
@@ -41,6 +43,27 @@ const LeftSidebar = () => {
   }
   else if(texttype=="Schemes"){
     navigate('/schemes');
+  }
+  else if(texttype=="Upload Prescription"){
+    navigate("/upload");
+  }
+  else if(texttype=="Profile"){
+    navigate("/profile");
+  }
+  else if(texttype=="Admin"){
+    if(user?.isAdmin==true){
+         navigate("/admin");
+    }
+    else{
+      navigate("/");
+      toast.message("You are not admin");
+    }
+  }
+  else if(texttype=="Check Relevance"){
+    navigate("/relevance");
+  }
+  else if(texttype=="Reminders"){
+    navigate("/reminders");
   }
 }
 const logouthandler=async ()=>{
@@ -58,6 +81,7 @@ const logouthandler=async ()=>{
     
   }
 }
+
   return (
     <div className="hidden md:flex fixed top-0 left-0 h-screen w-64 px-4 py-6 bg-gradient-to-b from-blue-100 to-cyan-100 text-gray-800 shadow-lg border-r border-blue-200 z-20">
       <div className="flex flex-col h-full justify-between">

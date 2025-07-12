@@ -49,18 +49,36 @@ export const getMedicineBuyLinks = async (req, res) => {
 export const checkMedicineRelevance = async (req, res) => {
   try {
     const { name, disease } = req.query;
-    const medicine = await Medicine.findOne({ name: { $regex: name, $options: "i" } });
+
+    // --- FIX START ---
+    // 1. Validate that 'name' and 'disease' query parameters are provided
+    if (!name) {
+      return res.status(400).json({ success: false, message: "Medicine name ('name') query parameter is required." });
+    }
+    if (!disease) {
+      return res.status(400).json({ success: false, message: "Disease name ('disease') query parameter is required." });
+    }
+    // --- FIX END ---
+
+    // Ensure 'name' is treated as a string for the regex
+    // Although req.query parameters are usually strings, explicit conversion or validation is safer.
+    const medicine = await Medicine.findOne({ name: { $regex: String(name), $options: "i" } });
 
     if (!medicine || !medicine.diseases) {
-      return res.status(404).json({ success: false, message: "Medicine or disease data not found" });
+      return res.status(404).json({ success: false, message: "Medicine not found or it has no associated disease data." });
     }
 
-    const isRelevant = medicine.diseases.some(d => d.toLowerCase() === disease.toLowerCase());
-    const relevance = isRelevant ? 90 : 30;
+    // Ensure 'disease' is treated as a string for comparison
+    const targetDisease = String(disease).toLowerCase();
+    const isRelevant = medicine.diseases.some(d => String(d).toLowerCase() === targetDisease);
+
+    const relevance = isRelevant ? 90 : 30; // Your logic for relevance score
 
     res.status(200).json({ success: true, relevance: `${relevance}%` });
   } catch (error) {
     console.error("checkMedicineRelevance Error:", error);
+    // For debugging, you might temporarily send the error message directly
+    // res.status(500).json({ success: false, message: "Internal server error", debugError: error.message });
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
@@ -68,7 +86,7 @@ export const checkMedicineRelevance = async (req, res) => {
 
 export const addMedicine = async (req, res) => {
   try {
-    const { name, composition, dosage, uses, sideEffects, buyLinks, diseases } = req.body;
+    const { name, composition, description,dosage, uses, sideEffects, buyLinks, diseases } = req.body;
 
     if (!name || !composition) {
       return res.status(400).json({ success: false, message: "Name and composition are required" });
@@ -82,6 +100,7 @@ export const addMedicine = async (req, res) => {
     const medicine = await Medicine.create({
       name,
       composition,
+      description,
       dosage,
       uses,
       sideEffects,

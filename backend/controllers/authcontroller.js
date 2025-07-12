@@ -5,8 +5,8 @@ import  {Prescription}  from "../models/Prescription.js";
 import Reminder from "../models/Reminder.js";
 import Scheme from "../models/scheme.js";
 import getDataUri from "../utils/datauri.js"
+import cloudinary from "../utils/cloudinary.js"; 
 
-import { v2 as cloudinary } from "cloudinary"; 
 
 
 export const registerUser = async (req, res) => {
@@ -112,7 +112,6 @@ export const logout = async (_, res) => {
   try {
    return res.cookie("token", "", {
   httpOnly: true,
-  secure: true,
   sameSite: "None",
   maxAge: 0
 }).json({
@@ -138,16 +137,16 @@ export const getCurrentUser = async (req, res) => {
         success: false,
       });
     }
-// const user = await User.findById(req.id)
-//   .select("-password")
-//   .populate("prescriptions")
-//   .populate("reminders")
-//   .populate("matchedSchemes");
+const userr = await User.findById(req.id)
+  .select("-password")
+  .populate("prescriptions")
+  .populate("reminders")
+  .populate("matchedSchemes");
 
     return res.status(200).json({
       message: "User found",
       success: true,
-      user,
+      user:userr,
     });
   } catch (error) {
     console.error(error);

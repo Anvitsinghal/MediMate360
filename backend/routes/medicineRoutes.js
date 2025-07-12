@@ -7,7 +7,7 @@ router.route('/medicineinfo').get(getMedicineInfo);
 router.route('/medicinealternative').get(getMedicineAlternatives);
 router.route('/medicinebuylinks').get(getMedicineBuyLinks);
 router.route('/relevance').get(checkMedicineRelevance);
-router.route('/addmedi').post(isAdmin,isAuth,addMedicine);
+router.route('/addmedi').post(isAuth,addMedicine);
 router.route('/search').get(isAuth,searchMedicines);
 export default router;
 

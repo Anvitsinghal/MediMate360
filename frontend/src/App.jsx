@@ -12,6 +12,7 @@ import EditProfile from './components/EditProfile';
 import Login from './components/Login';
 import Register from './components/Register';
 import NotFound from './components/NotFound';
+import Admin from './components/Admin';
 const App = () => {
   return (
     <>
@@ -27,7 +28,8 @@ const App = () => {
     <Route path="reminders" element={<><Reminders /></>} />
     <Route path="schemes" element={<><Schemes /></>} />
     <Route path="profile" element={<><Profile /></>} />
-    <Route path="profile/edit" element={<><EditProfile /></>} />
+    <Route path="edit" element={<><EditProfile /></>} />
+     <Route path="admin" element={<><Admin /></>} />
   </Route>
 
   

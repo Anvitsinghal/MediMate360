@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 const Schemes = () => {
   const dispatch = useDispatch();
   const { schemes } = useSelector(store => store.scheme);
-
+   const {user}=useSelector(store=>store.auth);
   const [filtered, setFiltered] = useState([]);
   const [search, setSearch] = useState('');
   const [filters, setFilters] = useState({
@@ -24,7 +24,7 @@ const Schemes = () => {
         const res = await axios.get("http://localhost:8000/scheme/getallschemes");
         if (res.data.success) {
           dispatch(setSchemes(res.data.schemes));
-          setFiltered(res.data.schemes); // initialize filtered list
+          setFiltered(res.data.schemes);
         }
       } catch (error) {
         toast.message("try again");
@@ -34,7 +34,15 @@ const Schemes = () => {
     fetchSchemes();
   }, [dispatch]);
 
- 
+  const show=()=>{
+    setFilters({
+      gender: user?.gender,
+    state: user?.state,
+    age: user?.age,
+     
+    })
+    
+  }
   useEffect(() => {
     let data = [...schemes];
 
@@ -50,7 +58,12 @@ const Schemes = () => {
     }
 
     if (filters.state) {
-      data = data.filter(s => s.eligibility?.states?.includes(filters.state));
+      const lowerCaseFilterState = filters.state.toLowerCase();
+      data = data.filter(s =>
+        s.eligibility?.states?.some(state =>
+          state.toLowerCase().includes(lowerCaseFilterState)
+        )
+      );
     }
 
     if (filters.age) {
@@ -63,7 +76,9 @@ const Schemes = () => {
 
     if (filters.disease) {
       data = data.filter(s =>
-        s.eligibility?.diseasesCovered?.includes(filters.disease)
+        s.eligibility?.diseasesCovered?.some(disease =>
+          disease.toLowerCase().includes(filters.disease.toLowerCase())
+        )
       );
     }
 
@@ -113,7 +128,7 @@ const Schemes = () => {
           <option value="">Select Gender</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
-          <option value="Other">Other</option>
+          <option value="any">Other</option>
         </select>
 
         <input
@@ -123,14 +138,9 @@ const Schemes = () => {
           onChange={e => setFilters(prev => ({ ...prev, state: e.target.value }))}
           className="border px-3 py-2 rounded-md"
         />
+        <button onClick={show}>Show matched schemes</button>
 
-        <input
-          type="text"
-          placeholder="Disease (optional)"
-          value={filters.disease}
-          onChange={e => setFilters(prev => ({ ...prev, disease: e.target.value }))}
-          className="border px-3 py-2 rounded-md"
-        />
+       
       </div>
 
       

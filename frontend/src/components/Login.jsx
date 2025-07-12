@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { Toaster, toast } from 'sonner';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '@/Redux/authSlice';
 
 const Login = () => {
+  const dispatch=useDispatch();
   const navigate=useNavigate();
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
@@ -24,6 +27,7 @@ const Login = () => {
         navigate('/');
         setemail("");
         setpassword("");
+        dispatch(loginSuccess(res.data.user));
       } else {
         toast.error(res.data.message || 'Login failed');
       }
