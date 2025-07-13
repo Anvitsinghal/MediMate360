@@ -1,4 +1,4 @@
-import Medicine from "../models/medicine.js";
+import Medicine from "../models/Medicine.js";
 
 export const getMedicineInfo = async (req, res) => {
   try {
@@ -86,7 +86,26 @@ export const checkMedicineRelevance = async (req, res) => {
 
 export const addMedicine = async (req, res) => {
   try {
-    const { name, composition, description,dosage, uses, sideEffects, buyLinks, diseases } = req.body;
+    let {
+      name,
+      composition,
+      description,
+      uses,
+      dosage,
+      storageInstructions,
+      type,
+      isGeneric,
+      isPrescriptionRequired,
+      price
+    } = req.body;
+
+    // Parse arrays that came as JSON strings
+    const sideEffects = JSON.parse(req.body.sideEffects || "[]");
+    const precautions = JSON.parse(req.body.precautions || "[]");
+    const diseases = JSON.parse(req.body.diseases || "[]");
+    const alternatives = JSON.parse(req.body.alternatives || "[]");
+    const manufacturers = JSON.parse(req.body.manufacturers || "[]");
+    const buyLinks = JSON.parse(req.body.buyLinks || "[]");
 
     if (!name || !composition) {
       return res.status(400).json({ success: false, message: "Name and composition are required" });
@@ -101,11 +120,19 @@ export const addMedicine = async (req, res) => {
       name,
       composition,
       description,
-      dosage,
       uses,
+      dosage,
       sideEffects,
+      precautions,
+      storageInstructions,
+      type,
+      isGeneric,
+      isPrescriptionRequired,
+      diseases,
+      alternatives,
+      manufacturers,
+      price,
       buyLinks,
-      diseases
     });
 
     res.status(201).json({ success: true, message: "Medicine added", medicine });

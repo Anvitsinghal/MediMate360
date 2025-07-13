@@ -20,6 +20,7 @@ const schemeSchema = new mongoose.Schema({
     ageRange: {
       min: { type: Number, default: 0 },
       max: { type: Number, default: 100 }
+    }
     },
     gender: {
       type: [String], 
@@ -38,11 +39,11 @@ const schemeSchema = new mongoose.Schema({
     otherCriteria: {
       type: String 
     },
-    schemeimage:{
+    schemeImage:{
        public_id: String,
        url: String,
-    }
-  },
+    },
+  
 
   documentsRequired: {
     type: [String]

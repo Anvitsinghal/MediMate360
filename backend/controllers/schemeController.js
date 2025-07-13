@@ -75,13 +75,12 @@ export const createScheme = async (req, res) => {
 
     if (schemeImage) {
       const fileUri = getDataUri(schemeImage);
-      const cloudresponse = await cloudinary.uploader.upload(fileUri);
+      const cloudresponse = await cloudinary.uploader.upload(fileUri.content);
       cloudImage = {
         public_id: cloudresponse.public_id,
         url: cloudresponse.secure_url,
       };
     }
-
     const newScheme = await Scheme.create({
       name,
       description,
@@ -96,7 +95,7 @@ export const createScheme = async (req, res) => {
       applyLink,
       helpline,
       isActive,
-      schemeimage: cloudImage,
+      schemeImage: cloudImage,
     });
 
     return res.status(201).json({
@@ -195,9 +194,7 @@ export const deleteScheme = async (req, res) => {
     }
 
    
-    if (scheme.schemeimage?.public_id) {
-      await cloudinary.uploader.destroy(scheme.schemeimage.public_id);
-    }
+   
 
     await Scheme.findByIdAndDelete(id);
 

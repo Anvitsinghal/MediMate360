@@ -13,6 +13,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import NotFound from './components/NotFound';
 import Admin from './components/Admin';
+import Updatescheme from './components/updatescheme';
 const App = () => {
   return (
     <>
@@ -30,6 +31,7 @@ const App = () => {
     <Route path="profile" element={<><Profile /></>} />
     <Route path="edit" element={<><EditProfile /></>} />
      <Route path="admin" element={<><Admin /></>} />
+     <Route path="update" element={<Updatescheme/>} />
   </Route>
 
   

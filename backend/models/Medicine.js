@@ -78,5 +78,6 @@ const medicineSchema = new mongoose.Schema({
   }
 });
 
-const Medicine = mongoose.model('Medicine', medicineSchema);
+const Medicine = mongoose.models.Medicine || mongoose.model("Medicine", medicineSchema);
+
 export default Medicine;
