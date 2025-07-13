@@ -14,23 +14,24 @@ import Register from './components/Register';
 import NotFound from './components/NotFound';
 import Admin from './components/Admin';
 import Updatescheme from './components/updatescheme';
+import ProtectedRoutes from './components/ProtectedRoutes';
 const App = () => {
   return (
     <>
   <Routes>
   <Route
     path="/"
-    element={<><MainLayout /></>}
+    element={<ProtectedRoutes><MainLayout /></ProtectedRoutes>}
   >
     <Route index element={<Home />} />
-    <Route path="upload" element={<><UploadPrescription /></>} />
-    <Route path="medicines" element={<><Medicines /></>} />
-    <Route path="relevance" element={<><RelevanceChecker /></>} />
-    <Route path="reminders" element={<><Reminders /></>} />
-    <Route path="schemes" element={<><Schemes /></>} />
-    <Route path="profile" element={<><Profile /></>} />
-    <Route path="edit" element={<><EditProfile /></>} />
-     <Route path="admin" element={<><Admin /></>} />
+    <Route path="upload" element={<ProtectedRoutes><UploadPrescription /></ProtectedRoutes>} />
+    <Route path="medicines" element={<ProtectedRoutes><Medicines /></ProtectedRoutes>} />
+    <Route path="relevance" element={<ProtectedRoutes><RelevanceChecker /></ProtectedRoutes>} />
+    <Route path="reminders" element={<ProtectedRoutes><Reminders /></ProtectedRoutes>} />
+    <Route path="schemes" element={<ProtectedRoutes><Schemes /></ProtectedRoutes>} />
+    <Route path="profile" element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
+    <Route path="edit" element={<ProtectedRoutes><EditProfile /></ProtectedRoutes>} />
+     <Route path="admin" element={<ProtectedRoutes><Admin /></ProtectedRoutes>} />
      <Route path="update" element={<Updatescheme/>} />
   </Route>
 

@@ -10,10 +10,12 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { GrUserAdmin } from "react-icons/gr";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IoMdMenu, IoMdClose } from "react-icons/io";
+import { loginSuccess, logoutSuccess } from '@/Redux/authSlice';
 
 const LeftSidebar = () => {
+  const dispatch=useDispatch();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user } = useSelector(store => store.auth);
   const navigate = useNavigate();
@@ -73,7 +75,10 @@ const LeftSidebar = () => {
       });
       if (res.data.success) {
         toast.success(res.data.message);
+        dispatch(logoutSuccess());
+        dispatch(loginSuccess(null));
         navigate('/login');
+        
       }
     } catch (error) {
       console.log(error);

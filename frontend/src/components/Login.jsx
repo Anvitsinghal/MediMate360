@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Toaster, toast } from 'sonner';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess } from '@/Redux/authSlice';
 
 const Login = () => {
@@ -10,7 +10,7 @@ const Login = () => {
   const navigate=useNavigate();
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
-
+   const {user}=useSelector(store=>store.auth)
   const setloginhandler = async (e) => {
     e.preventDefault(); 
     try {
@@ -36,13 +36,23 @@ const Login = () => {
       toast.error('Wrong email or password');
     }
   };
-
+useEffect(()=>{
+  if(user){
+    navigate("/");
+  }
+},[])
   return (
-    <div className="flex items-center justify-center min-h-screen bg-blue-50">
+   <div
+  className="flex items-center justify-center min-h-screen bg-cover bg-center"
+  style={{
+    backgroundImage:
+      "url('https://images.unsplash.com/photo-1471864190281-a93a3070b6de?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+  }}
+>
      
       <form
         onSubmit={setloginhandler}
-        className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 w-full max-w-sm"
+         className="bg-white/20 backdrop-blur-md shadow-xl rounded-xl px-8 pt-6 pb-8 w-full max-w-sm border border-white/30 text-gray-900"
       >
         <h1 className="text-2xl font-bold text-center mb-6 text-blue-700">MEDICARE360</h1>
 
