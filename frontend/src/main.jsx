@@ -5,7 +5,7 @@ import App from './App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { Provider } from 'react-redux';
-import { store, persistor } from './Redux/Store'; 
+import { store, persistor } from './Redux/store'; 
 import { PersistGate } from 'redux-persist/integration/react';
 
 createRoot(document.getElementById('root')).render(
