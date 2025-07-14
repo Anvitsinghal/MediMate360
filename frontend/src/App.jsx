@@ -13,7 +13,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import NotFound from './components/NotFound';
 import Admin from './components/Admin';
-import Updatescheme from './components/updatescheme';
+import Updatescheme from './components/Updatescheme';
 import ProtectedRoutes from './components/ProtectedRoutes';
 const App = () => {
   return (
