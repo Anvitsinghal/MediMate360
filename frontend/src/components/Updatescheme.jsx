@@ -26,7 +26,7 @@ const Updatescheme = () => {
     if (!uid) return toast.error("Please enter Scheme ID");
 
     try {
-      const res = await axios.delete(`http://localhost:8000/scheme/delete/${uid}`, {
+      const res = await axios.delete(`https://medimate360.onrender.com/scheme/delete/${uid}`, {
         withCredentials: true,
       });
       toast[res.data.success ? "success" : "error"](res.data.message);
@@ -57,7 +57,7 @@ const Updatescheme = () => {
     formData.append("documentsRequired", JSON.stringify(documentsRequired));
 
     try {
-      const res = await axios.post(`http://localhost:8000/scheme/update/${uid}`, formData, {
+      const res = await axios.post(`https://medimate360.onrender.com/scheme/update/${uid}`, formData, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });

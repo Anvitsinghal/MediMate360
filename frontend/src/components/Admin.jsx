@@ -65,7 +65,7 @@ const navigate=useNavigate();
     formData.append("documentsRequired", JSON.stringify(documentsRequired));
 
     try {
-      const res = await axios.post("http://localhost:8000/scheme/create", formData, {
+      const res = await axios.post("https://medimate360.onrender.com/scheme/create", formData, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });
@@ -117,7 +117,7 @@ const navigate=useNavigate();
        console.log(formData);
        
     try {
-      const res = await axios.post("http://localhost:8000/medicine/addmedi", formData, {
+      const res = await axios.post("https://medimate360.onrender.com//medicine/addmedi", formData, {
         withCredentials: true,
         headers: { "Content-Type": "application/json" },
       });

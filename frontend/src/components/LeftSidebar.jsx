@@ -70,7 +70,7 @@ const LeftSidebar = () => {
 
   const logouthandler = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/user/logout', {
+      const res = await axios.get('https://medimate360.onrender.com/user/logout', {
         withCredentials: true
       });
       if (res.data.success) {

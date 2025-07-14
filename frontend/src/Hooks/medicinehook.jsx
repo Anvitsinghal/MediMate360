@@ -8,7 +8,7 @@ const getallmedcines=()=>{
    useEffect(()=>{
     const fetallmediecines=async ()=>{
         try {
-            const res=await axios.get('http://localhost:8000/medicine/medicineinfo',{
+            const res=await axios.get('https://medimate360.onrender.com/medicine/medicineinfo',{
                 withCredentials:true
             })
             if(res.data.success){

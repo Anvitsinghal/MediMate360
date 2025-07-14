@@ -27,7 +27,7 @@ const UploadPrescription = () => {
 
     try {
       console.log('Uploading file:', file.name);
-      const res = await axios.post('http://localhost:8000/prescription/upload', formData, {
+      const res = await axios.post('https://medimate360.onrender.com/prescription/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         withCredentials: true,
       });

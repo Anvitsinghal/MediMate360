@@ -20,7 +20,7 @@ const RelevanceChecker = () => {
     setResult(null);
 
     try {
-      const res = await axios.get('http://localhost:8000/medicine/relevance', {
+      const res = await axios.get('https://medimate360.onrender.com/medicine/relevance', {
         params: {
           name: medicine.trim(),
           disease: disease.trim()

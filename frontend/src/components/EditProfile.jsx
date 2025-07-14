@@ -26,7 +26,7 @@ const EditProfile = () => {
 
     try {
       const res = await axios.post(
-        'http://localhost:8000/user/profile/edit',
+        'https://medimate360.onrender.com/user/profile/edit',
         formData,
         {
           withCredentials: true,

@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault(); 
     try {
       const res = await axios.post(
-        'http://localhost:8000/user/login',
+        'https://medimate360.onrender.com/user/login',
         { email, password },
         {
           headers: { 'Content-Type': 'application/json' },

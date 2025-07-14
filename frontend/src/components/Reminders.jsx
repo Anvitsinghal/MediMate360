@@ -34,7 +34,7 @@ const Reminders = () => {
   const fetchReminders = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('http://localhost:8000/reminder/getuserreminder', {
+      const res = await axios.get('https://medimate360.onrender.com/reminder/getuserreminder', {
         withCredentials: true
       });
       
@@ -96,7 +96,7 @@ const Reminders = () => {
       
       if (editingReminder) {
         // Update existing reminder
-        const res = await axios.post(`http://localhost:8000/reminder/updatereminder/${editingReminder._id}`, formData, {
+        const res = await axios.post(`https://medimate360.onrender.com/reminder/updatereminder/${editingReminder._id}`, formData, {
           withCredentials: true
         });
         
@@ -106,7 +106,7 @@ const Reminders = () => {
         }
       } else {
         // Create new reminder
-        const res = await axios.post('http://localhost:8000/reminder/create', formData, {
+        const res = await axios.post('https://medimate360.onrender.com/reminder/create', formData, {
           withCredentials: true
         });
         
@@ -148,7 +148,7 @@ const Reminders = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post(`http://localhost:8000/reminder/deletereminder/${reminderId}`, {}, {
+      const res = await axios.post(`https://medimate360.onrender.com/reminder/deletereminder/${reminderId}`, {}, {
         withCredentials: true
       });
       

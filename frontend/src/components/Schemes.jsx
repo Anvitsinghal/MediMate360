@@ -26,7 +26,7 @@ const Schemes = () => {
     const fetchSchemes = async () => {
       setLoading(true);
       try {
-        const res = await axios.get("http://localhost:8000/scheme/getallschemes");
+        const res = await axios.get("https://medimate360.onrender.com/scheme/getallschemes");
         if (res.data.success) {
           dispatch(setSchemes(res.data.schemes));
           setFiltered(res.data.schemes);
@@ -117,7 +117,7 @@ const Schemes = () => {
 
   const handleSchemeClick = async (schemeId) => {
     try {
-      const res = await axios.get(`http://localhost:8000/scheme/${schemeId}`);
+      const res = await axios.get(`https://medimate360.onrender.com/scheme/${schemeId}`);
       if (res.data.success) {
         setSelectedScheme(res.data.scheme);
         setShowDetail(true);

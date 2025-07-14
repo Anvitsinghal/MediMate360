@@ -19,7 +19,7 @@ const dispatch =useDispatch();
   }
 const deleteprofilehandler=async ()=>{
   try {
-     const res=await axios.delete("http://localhost:8000/user/delete",{
+     const res=await axios.delete("https://medimate360.onrender.com/user/delete",{
       withCredentials:true
      })
      if(res.data.success){
