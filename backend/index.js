@@ -13,7 +13,7 @@ import prescriptionRoutes from "./routes/prescriptionRoutes.js"
 const app=express();
 dotenv.config();
 app.use(cors({
-    origin:'http://localhost:5173',
+    origin:'https://medimate360-frontend.onrender.com',
     credentials:true
 }))
 app.use(express.json());
