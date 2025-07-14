@@ -1,9 +1,10 @@
-import Medicine from "../models/medicine.js";
+
 import { extractTextFromImage } from "../utils/ocr.js";
 import { Prescription } from "../models/Prescription.js";
 import User from "../models/user.js";
 import cloudinary from 'cloudinary';
 import getDataUri from "../utils/datauri.js";
+import Medicine from "../models/Medicine.js";
 
 // Configure Cloudinary if credentials are available
 if (process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET) {
